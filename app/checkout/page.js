@@ -1,6 +1,7 @@
 "use client";
 import { useCart } from "../context/CartContext";
 import { useEffect } from "react";
+import PayPalButton from "../components/PayPalButton";
 
 export default function CheckoutPage() {
   const { cart } = useCart();
@@ -9,13 +10,6 @@ export default function CheckoutPage() {
     const price = parseFloat(item.price.replace("€", ""));
     return sum + price;
   }, 0);
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
 
   const handleStripeCheckout = async () => {
     const res = await fetch("/api/checkout", {
@@ -35,7 +29,12 @@ export default function CheckoutPage() {
       <h1 className="text-3xl font-bold mb-6">Checkout</h1>
 
       {cart.length === 0 ? (
-        <p>Your cart is empty. <a href="/" className="text-gold-700 underline">Continue Shopping</a></p>
+        <p>
+          Your cart is empty.{" "}
+          <a href="/" className="text-gold-700 underline">
+            Continue Shopping
+          </a>
+        </p>
       ) : (
         <>
           <div className="space-y-4 mb-6">
@@ -60,43 +59,25 @@ export default function CheckoutPage() {
             Pay with Card (Stripe)
           </button>
 
-          {/* PayPal Button */}
-          <div id="paypal-button-container" className="mt-8"></div>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                setTimeout(() => {
-                  if (window.paypal) {
-                    paypal.Buttons({
-                      createOrder: function(data, actions) {
-                        return actions.order.create({
-                          purchase_units: [{
-                            amount: {
-                              value: '${total.toFixed(2)}'
-                            }
-                          }]
-                        });
-                      },
-                      onApprove: function(data, actions) {
-                        return actions.order.capture().then(function(details) {
-                          window.location.href = "/thank-you";
-                        });
-                      }
-                    }).render('#paypal-button-container');
-                  }
-                }, 1000);
-              `,
-            }}
-          />
+          {/* ✅ PayPal Button Component */}
+          <PayPalButton total={total} />
 
           {/* Bank Transfer */}
           <section className="mt-10 bg-gray-50 p-6 rounded">
             <h3 className="text-xl font-bold mb-2">Prefer Bank Transfer?</h3>
             <p className="mb-1">Send the total amount to:</p>
-            <p><strong>Bank Name:</strong> Your Bank Name</p>
-            <p><strong>IBAN:</strong> DE12 3456 7890 1234 5678 90</p>
-            <p><strong>Reference:</strong> Your Name or Order #</p>
-            <p className="mt-2 text-sm text-gray-600">We’ll process your order once payment is received.</p>
+            <p>
+              <strong>Bank Name:</strong> Your Bank Name
+            </p>
+            <p>
+              <strong>IBAN:</strong> DE12 3456 7890 1234 5678 90
+            </p>
+            <p>
+              <strong>Reference:</strong> Your Name or Order #
+            </p>
+            <p className="mt-2 text-sm text-gray-600">
+              We’ll process your order once payment is received.
+            </p>
           </section>
         </>
       )}
