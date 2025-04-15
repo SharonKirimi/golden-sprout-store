@@ -6,7 +6,13 @@ export default function Header() {
 
   return (
     <header className="p-6 shadow-md flex justify-between items-center">
-      <h1 className="text-2xl font-bold text-gold-700">Golden Sprout</h1>
+     <a href="/">
+  <div className="flex items-center gap-2">
+    <img src="/selamlight-logo.png" alt="Selamlight Logo" className="h-10 w-10 rounded-full object-cover" />
+<h1 className="text-2xl font-bold text-gold-700">Selamlight</h1>
+  </div>
+</a>
+
       <nav className="space-x-6">
         <a href="/gold-jewelry" className="hover:text-gold-700">Gold Jewellery</a>
         <a href="/books" className="hover:text-gold-700">Books</a>
