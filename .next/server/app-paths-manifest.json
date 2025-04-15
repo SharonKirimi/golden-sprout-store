@@ -1,5 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/gold-jewelry/page": "app/gold-jewelry/page.js",
-  "/lifestyle/page": "app/lifestyle/page.js"
+  "/page": "app/page.js"
 }
