@@ -5,21 +5,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/gold-jewelry/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/gold-jewelry/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/lifestyle/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/lifestyle/page.js"
     ]
   }
 }
